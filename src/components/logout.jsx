@@ -1,14 +1,10 @@
-import { useDispatch } from 'react-redux';
 import React from 'react'
-import { logout } from '../features/userSlice';
 
 const Logout = () => {
-const dispatch = useDispatch();
 
     const handleLogout = (e) => {
         e.preventDefault();
 
-        dispatch(logout());
     }
 
     return (
