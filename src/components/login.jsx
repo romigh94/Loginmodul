@@ -1,15 +1,27 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const Login = () => {
 
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
+  const [success, setSuccess] = useState('');
+  const [error, setError] = useState('')
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.useState)
+
+    if (!email) {
+    setError("Skriv in din email adress");
+    } else if (!password) {
+    setError("Skriv in ditt lösenord, det måste vara minst 6 tecken")
+    return error
+    
+
+    } else {
+      setSuccess("Inloggningen lyckades")
+    }
 
   }
 
@@ -22,17 +34,22 @@ const Login = () => {
 
            <label>E-postadress*</label>
            <div className="Email">
-                <input type="email" id="email" value={email} 
-                onChange={e => setEmail(e.target.value)} required />
+                <input type="text" id="email" value={email} 
+                onChange={e => setEmail(e.target.value)} />
            </div>
 
            <label>Lösenord*</label>
            <div className="Password">
                <input type="password" value={password} 
-               onChange={e => setPassword(e.target.value)} required />
+               onChange={e => setPassword(e.target.value)} />
            </div>
-           <button>Login</button>
+
+           {error}
+           {success}
+           <button>LOGGA IN</button>
         </div> 
+        Har du inget konto?
+        <Link to="/signup">Registrera dig här</Link>
     </form>
 
     </div>

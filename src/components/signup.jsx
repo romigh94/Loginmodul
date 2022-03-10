@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 
 const Signup = () => {
@@ -7,12 +8,16 @@ const Signup = () => {
     const [firstName, setfirstName] = useState('');
     const [lastname, setLastname] = useState('');
     const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('')
+    const [password, setPassword] = useState('');
+    const [success, setSuccess] = useState('');
+
 
   
     const handleSubmit = (e) => {
-      alert("success");
-      console.log(e.target.value);
+
+        e.preventDefault();
+        setSuccess("Du är nu registrerad användare!")
+
     }
   
     return (
@@ -46,8 +51,11 @@ const Signup = () => {
                  <input type="password" value={password} 
                  onChange={e => setPassword(e.target.value)} required />
              </div>
-             
+             <p>{success}</p>
+             <button>SKAPA KONTO</button>
           </div> 
+          Har du redan ett konto?
+        <Link to="/login">Logga in här</Link>
       </form>
   
       </div>
