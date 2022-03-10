@@ -1,26 +1,25 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
-  const [success, setSuccess] = useState('');
   const [error, setError] = useState('')
+  const navigate = useNavigate();
+
+
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!email) {
-    setError("Skriv in din email adress");
+      error["email"] = "Skriv in din mail"
     } else if (!password) {
-    setError("Skriv in ditt lösenord, det måste vara minst 6 tecken")
-    return error
-    
-
+    setError("Skriv in ditt lösenord") 
     } else {
-      setSuccess("Inloggningen lyckades")
+      navigate('/logout');   
     }
 
   }
@@ -44,9 +43,10 @@ const Login = () => {
                onChange={e => setPassword(e.target.value)} />
            </div>
 
-           {error}
-           {success}
-           <button>LOGGA IN</button>
+           <p>{error}</p>
+
+
+           <button onClick={handleSubmit}>LOGGA IN</button>
         </div> 
         Har du inget konto?
         <Link to="/signup">Registrera dig här</Link>
