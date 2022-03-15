@@ -5,22 +5,30 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
   const navigate = useNavigate();
 
-
+  const [validation, setValidation] = useState({
+    email: "",
+    password: ""
+  })
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!email) {
-      error["email"] = "Skriv in din mail"
-    } else if (!password) {
-    setError("Skriv in ditt lösenord") 
+    let errors = {...validation}
+
+
+      if (!email) {
+      errors.email = "Alla fält är obligatoriska. Vänligen skriv in din email"
+    } if (!password) {
+      errors.password = "Alla fält är obligatoriska. Vänligen skriv in ditt lösenord."
     } else {
-      navigate('/logout');   
+      navigate('/logout')
+
     }
+
+    return setValidation(errors)
 
   }
 
@@ -36,14 +44,14 @@ const Login = () => {
                 <input type="text" id="email" value={email} 
                 onChange={e => setEmail(e.target.value)} />
            </div>
+           <p>{validation.email}</p>
 
            <label>Lösenord*</label>
            <div className="Password">
                <input type="password" value={password} 
                onChange={e => setPassword(e.target.value)} />
            </div>
-
-           <p>{error}</p>
+           <p>{validation.password}</p>
 
 
            <button onClick={handleSubmit}>LOGGA IN</button>

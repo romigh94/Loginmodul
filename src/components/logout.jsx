@@ -16,7 +16,7 @@ const navigate = useNavigate();
     return (
         <div className="logout">
         <h1>
-            Welcome!
+            Welcome
         </h1>
         <button className="logoutBtn" onClick={(e) => handleLogout(e)}>Logout</button>  
         </div>
