@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import axios from 'axios'
 
 export default function Signup() {
 
@@ -24,11 +25,19 @@ export default function Signup() {
       const formdata = {
         firstname: firstname,
         lastname: lastname,
-        username: email,
+        email: email,
         password: password
       }
 
-      fetch('http://localhost:8080/', {
+      axios.post('http://localhost:8080/', formdata)
+      .then(console.log(formdata))
+      .then(response => console.log(response.data))
+      .catch(error => console.log(error))
+
+      
+
+      /*
+      fetch('http://localhost:3001/users', {
         method: 'POST',
         contentType: 'application/json',
         body: JSON.stringify(formdata)
@@ -36,6 +45,7 @@ export default function Signup() {
       .then(console.log(formdata))
       .then(response => console.log(response))
       .catch(error => console.log(error))
+      */
       
 
       if (!firstname) {
