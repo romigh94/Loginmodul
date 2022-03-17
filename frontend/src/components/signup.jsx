@@ -18,11 +18,26 @@ export default function Signup() {
     let errors = {...validation}
 
 
-
     const handleSubmit = (e) => {
       e.preventDefault();
 
-  
+      const formdata = {
+        firstname: firstname,
+        lastname: lastname,
+        username: email,
+        password: password
+      }
+
+      fetch('http://localhost:8080/', {
+        method: 'POST',
+        contentType: 'application/json',
+        body: JSON.stringify(formdata)
+      })
+      .then(console.log(formdata))
+      .then(response => console.log(response))
+      .catch(error => console.log(error))
+      
+
       if (!firstname) {
         errors.firstname = "Alla fält är obligatoriska. Vänligen skriv in ditt namn"
       } if (!lastname) {
@@ -42,28 +57,6 @@ export default function Signup() {
       return setValidation(errors)
 
     }
-
-      const handleClick = (e) => {
-        e.preventDefault();
-
-      const formdata = {
-        username: email,
-        password: password
-      }
-
-      fetch('http://localhost:8080/', {
-        method: 'POST',
-        contentType: 'application/json',
-        body: JSON.stringify(formdata)
-      })
-      .then(console.log(formdata))
-      .then(response => console.log(response))
-      .catch(error => console.log(error))
-
-}
-
-
-
 
 
     //Sign up form
@@ -108,7 +101,7 @@ export default function Signup() {
              <p>{success}</p>
 
 
-             <button onClick={handleClick}>SKAPA KONTO</button>
+             <button>SKAPA KONTO</button>
 
 
           </div> 
