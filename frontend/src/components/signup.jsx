@@ -29,23 +29,11 @@ export default function Signup() {
         password: password
       }
 
-      axios.post('http://localhost:8080/', formdata)
+      axios.post('http://localhost:8080/register', formdata)
       .then(console.log(formdata))
       .then(response => console.log(response.data))
       .catch(error => console.log(error))
 
-      
-
-      /*
-      fetch('http://localhost:3001/users', {
-        method: 'POST',
-        contentType: 'application/json',
-        body: JSON.stringify(formdata)
-      })
-      .then(console.log(formdata))
-      .then(response => console.log(response))
-      .catch(error => console.log(error))
-      */
       
 
       if (!firstname) {
