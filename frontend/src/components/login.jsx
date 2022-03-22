@@ -13,21 +13,17 @@ const Login = () => {
   })
 
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     let errors = {...validation}
 
-
-      if (!email) {
+    if (!email) {
       errors.email = "Alla fält är obligatoriska. Vänligen skriv in din email"
     } if (!password) {
       errors.password = "Alla fält är obligatoriska. Vänligen skriv in ditt lösenord."
-    } else {
-      navigate('/logout')
-
-    }
-
+    } 
     return setValidation(errors)
 
   }
