@@ -1,30 +1,28 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
-  const navigate = useNavigate();
-
-  const [validation, setValidation] = useState({
-    email: "",
-    password: ""
-  })
+  const [message, setMessage] = useState('')
 
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let errors = {...validation}
+    //let errors = {...validation}
 
-    if (!email) {
-      errors.email = "Alla fält är obligatoriska. Vänligen skriv in din email"
-    } if (!password) {
-      errors.password = "Alla fält är obligatoriska. Vänligen skriv in ditt lösenord."
-    } 
-    return setValidation(errors)
+    const formdata = {
+      email: email,
+      password: password
+    }
+
+    axios.post('http://localhost:8080/login', formdata)
+    .then(res => setMessage(res.data.message))
+    .catch(error => console.log(error))
 
   }
 
@@ -40,14 +38,14 @@ const Login = () => {
                 <input type="text" id="email" value={email} 
                 onChange={e => setEmail(e.target.value)} />
            </div>
-           <p>{validation.email}</p>
 
            <label>Lösenord*</label>
            <div className="Password">
                <input type="password" value={password} 
                onChange={e => setPassword(e.target.value)} />
            </div>
-           <p>{validation.password}</p>
+
+         <p>{message}</p>  
 
 
            <button onClick={handleSubmit}>LOGGA IN</button>

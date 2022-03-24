@@ -10,13 +10,7 @@ export default function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [success, setSuccess] = useState('');
-
-
-    //Validation
-    const [validation, setValidation] = useState({
-      firstname: "", lastname: "", email: "", password: ""
-    })
-    let errors = {...validation}
+    const [error, setError] = useState('')
 
 
     const handleSubmit = (e) => {
@@ -29,35 +23,22 @@ export default function Signup() {
         password: password
       }
 
-      axios.post('http://localhost:8080/register', formdata)
-      .then(console.log(formdata))
-      .then(response => console.log(response.data))
-      .catch(error => console.log(error))
-
+      if (!firstname, !lastname, !email, !password) {
+        setError("Alla fält är obligatoriska")
       
-
-      if (!firstname) {
-        errors.firstname = "Alla fält är obligatoriska. Vänligen skriv in ditt namn"
-      } if (!lastname) {
-        errors.lastname = "Alla fält är obligatoriska. Vänligen skriv in ditt efternamn"
-      } if (!email) {
-        errors.email = "Alla fält är obligatoriska. Vänligen skriv in din email"
-      } if (!password) {
-        errors.password = "Alla fält är obligatoriska. Vänligen skriv in ditt lösenord"
       } else {
-        errors.firstname =""
-        errors.lastname = ""
-        errors.email = ""
-        errors.password = ""
-        setSuccess("Du är nu registrerad användare")
+        setError("")
 
+        axios.post('http://localhost:8080/register', formdata)
+        .then(console.log(formdata))
+        .then(res => console.log(res))
+        .catch(error => console.log(error))
+
+        setSuccess("Du är nu registrerad!")
       }
-      return setValidation(errors)
+
 
     }
-
-
-    //Sign up form
 
     return (
 
@@ -65,6 +46,9 @@ export default function Signup() {
         <h2>Skapa ditt konto</h2>
 
       <form className="signupform" onSubmit={handleSubmit}>
+
+      <p>{success}</p>
+      <p>{error}</p> 
           
          <div className="inner-form">
   
@@ -73,30 +57,26 @@ export default function Signup() {
                   <input type="text" id="firstname" name="firstname" value={firstname} 
                   onChange={e => setfirstName(e.target.value)} />
              </div> 
-             <p>{validation.firstname}</p>
 
              <label>Efternamn*</label>
              <div className="Lastname">
                  <input type="text" id="Lastname" name="lastname" value={lastname}
                  onChange={e => setLastname(e.target.value)} />
             </div> 
-            <p>{validation.lastname}</p>
 
             <label>Användarnamn/E-mail*</label>
             <div className="email">
                 <input type="email" id="email" name="email" value={email}
                 onChange={e => setEmail(e.target.value)} />
             </div> 
-            <p>{validation.email}</p>
-  
+
              <label>Lösenord*</label>
              <div className="Password">
                  <input type="password" id="password" name="password" value={password} 
                  onChange={e => setPassword(e.target.value)} />
              </div> 
-            <p>{validation.password}</p>
 
-             <p>{success}</p>
+
 
 
              <button>SKAPA KONTO</button>

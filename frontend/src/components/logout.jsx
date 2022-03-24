@@ -1,15 +1,20 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 const Logout = () => {
 
 const navigate = useNavigate();
 
+
+
     const handleLogout = (e) => {
         e.preventDefault();
-        
-        navigate("/")
+
+
+        navigate('/')
+
 
     }
 
