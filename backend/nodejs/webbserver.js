@@ -51,7 +51,7 @@ app.post('/login', (req, res) => {
     User.findOne({email: email}, (error, user) => {
         if (user) {
             if (password === user.password) {
-                res.send({message: "Du är inloggad"})
+                res.send({message: "Du är nu inloggad"})
             } else {
                 res.send({message: 'Fel användarnamn eller lösenord'})
             }

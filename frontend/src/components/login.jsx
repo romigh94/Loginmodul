@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
@@ -7,6 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
 
 
 
@@ -20,11 +21,18 @@ const Login = () => {
       password: password
     }
 
+    if (!email, !password) {
+      setError("Alla fält är obligatoriska")
+    
+    } else {
+    setError("")
+
     axios.post('http://localhost:8080/login', formdata)
     .then(res => setMessage(res.data.message))
     .catch(error => console.log(error))
 
   }
+}
 
   return (
     <div>
@@ -46,6 +54,7 @@ const Login = () => {
            </div>
 
          <p>{message}</p>  
+        <p>{error}</p>
 
 
            <button onClick={handleSubmit}>LOGGA IN</button>
