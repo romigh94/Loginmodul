@@ -9,7 +9,7 @@ export default function Signup() {
     const [lastname, setLastname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [success, setSuccess] = useState('');
+    const [message, setMessage] = useState('')
     const [error, setError] = useState('')
 
 
@@ -30,13 +30,10 @@ export default function Signup() {
         setError("")
 
         axios.post('http://localhost:8080/register', formdata)
-        .then(console.log(formdata))
-        .then(res => console.log(res))
+        .then(res => setMessage(res.data.message))
         .catch(error => console.log(error))
 
-        setSuccess("Du är nu registrerad!")
       }
-
 
     }
 
@@ -46,9 +43,6 @@ export default function Signup() {
         <h2>Skapa ditt konto</h2>
 
       <form className="signupform" onSubmit={handleSubmit}>
-
-      <p>{success}</p>
-      <p>{error}</p> 
           
          <div className="inner-form">
   
@@ -74,10 +68,10 @@ export default function Signup() {
              <div className="Password">
                  <input type="password" id="password" name="password" value={password} 
                  onChange={e => setPassword(e.target.value)} />
-             </div> 
-
-
-
+             </div>
+                    
+              <p>{message}</p>
+              <p>{error}</p> 
 
              <button>SKAPA KONTO</button>
 

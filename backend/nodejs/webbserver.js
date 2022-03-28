@@ -18,25 +18,35 @@ mongoose.connect(dbURL, {
 app.use(express.json());
 app.use(cors());
 
-
 app.get('/register', (req, res, next) => {
     res.send("register")
 })
 
 app.post('/register', (req, res) => {
 
-    const newUser = new User({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        password: req.body.password
+    User.findOne({ email: req.body.email }, (err, user) => {
+        if (err) {
+            res.send({message: "Något fel uppstod. Var vänligen försök igen senare."})
+
+        } if(user) {
+           res.send({message: "Denna email finns redan. Vänligen skriv upp en annan."})
+           return err
+
+        } else {
+            res.send({message: "Du är nu registrerad användare"})
+
+            const newUser = new User({
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                email: req.body.email,
+                password: req.body.password
+            })
+            newUser.save()
+            console.log(req.body)
+        
+        }
+
     })
-    
-
-    newUser.save()
-
-    console.log(req.body)
-
 });
 
 app.get('/login', (req, res, next) => {
