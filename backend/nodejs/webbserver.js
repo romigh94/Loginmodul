@@ -62,6 +62,8 @@ app.post('/login', (req, res) => {
         if (user) {
             if (password === user.password) {
                 res.send({message: "Du är nu inloggad"})
+            } if (!email) {
+                res.send({message: "Vänligen skriv din email"})
             } else {
                 res.send({message: 'Fel användarnamn eller lösenord'})
             }

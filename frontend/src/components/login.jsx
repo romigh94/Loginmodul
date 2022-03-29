@@ -20,9 +20,11 @@ const Login = () => {
       email: email,
       password: password
     }
-
-    if (!email, !password) {
-      setError("Alla fält är obligatoriska")
+    
+    if (!email) {
+    setError("Alla fält är obligatoriska. Vänligen skriv din email")
+  } if (!password) {
+    setError("Alla fält är obligatoriska. Vänligen skriv ditt lösenord.")
     
     } else {
     setError("")

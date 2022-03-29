@@ -23,16 +23,20 @@ export default function Signup() {
         password: password
       }
 
-      if (!firstname, !lastname, !email, !password) {
+      if (!firstname) {
         setError("Alla fält är obligatoriska")
-      
+      } else if (!lastname) {
+        setError("Alla fält är obligatoriska")
+      } else if (!email) {
+        setError("Alla fält är obligatoriska")
+      } else if (!password) {
+        setError("Alla fält är obligatoriska")
       } else {
         setError("")
 
         axios.post('http://localhost:8080/register', formdata)
         .then(res => setMessage(res.data.message))
         .catch(error => console.log(error))
-
       }
 
     }
